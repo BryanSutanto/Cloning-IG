@@ -8,7 +8,6 @@ fetch('https://pixabay.com/api/?key=27288807-7c18b43e45aba5d7e6b6f5102&q=yellow+
     newImg.src = element.webformatURL
     divImg.append(newImg)
     photoContainer.append(divImg)
-    console.log(element);
 
     const divInfo = document.createElement("div")
     divInfo.setAttribute("class", "img-info-wrapper")
@@ -44,13 +43,23 @@ fetch('https://pixabay.com/api/?key=27288807-7c18b43e45aba5d7e6b6f5102&q=yellow+
     divInfo.append(divComment)
     divImg.append(divInfo)
     
-    divInfo.addEventListener("mouseenter", (e) => {
-        e.target.classList.add("visible")
-    })
+    const imagesWrapper = Array.from(
+        document.getElementsByClassName("img-wrapper"),
+    );
     
-    divInfo.addEventListener("mouseleave", (e) => {
-        e.target.classList.remove("visible")
-    })
+    imagesWrapper.forEach((imageWrapper, i) => {
+        imageWrapper.addEventListener("mouseenter", function () {
+            Array.from(this.children)
+            .find((child) => child.classList.contains("img-info-wrapper"))
+            .classList.add("visible");
+        });
+    
+        imageWrapper.addEventListener("mouseleave", function () {
+            Array.from(this.children)
+            .find((child) => child.classList.contains("img-info-wrapper"))
+            .classList.remove("visible");
+        });
+    });
 }))
 
 
